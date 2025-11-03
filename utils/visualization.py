@@ -1,7 +1,7 @@
 import polars as pl
 import plotly.express as px
 
-def bar_plot(df: pl.DataFrame, x: str, y: str, title: str) -> None:
+def count_histogram(df: pl.DataFrame, x: str, title: str, x_title: str = None, y_title:str = None, ) -> None:
     """ creates a bar plot using plotly
     Args:
         df (pl.DataFrame): the dataframe to create the plot from
@@ -11,5 +11,11 @@ def bar_plot(df: pl.DataFrame, x: str, y: str, title: str) -> None:
     Returns:
         None
     """
-    fig = px.bar(df, x=x, title=title)
-    fig.show()
+    fig = px.histogram(df, x = x, width = 600, height = 400)
+    fig.update_layout(
+        title=title,
+        xaxis_title=x_title if x_title else x,
+        yaxis_title=y_title if y_title else "count",
+        template="plotly_white"
+    )
+    return fig
